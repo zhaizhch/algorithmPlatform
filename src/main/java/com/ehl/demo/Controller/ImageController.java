@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Api(value = "用户管理", tags = "用户管理接口")
+@Api(value = "镜像管理", tags = "镜像测试接口")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/image")
 public class ImageController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class ImageController {
         int ret = imageService.insertTest(imageDto);
         System.out.println("翟志成");
         System.out.println(ret);
-        return 0;
+        return ret;
     }
 
     @ApiOperation(value = "查询测试")
@@ -53,7 +53,7 @@ public class ImageController {
         List<Image>imageList = imageService.queryImageByConditionTest(imageDto);
         System.out.println("翟志成");
         System.out.println(imageList.size());
-        return 0;
+        return imageList.size();
     }
     @ApiOperation(value = "更新测试")
     @PostMapping(value = "/updateTest")
@@ -64,7 +64,7 @@ public class ImageController {
         int ret = imageService.updateImageInfoTest(imageDto);
         System.out.println("翟志成");
         System.out.println(ret);
-        return 0;
+        return ret;
     }
     @ApiOperation(value = "依赖查询测试")
     @PostMapping(value = "/dependencyTest")
@@ -74,7 +74,7 @@ public class ImageController {
         List<Image>imageList = imageService.queryDependencyTest(imageDto);
         System.out.println("翟志成");
         System.out.println(imageList.size());
-        return 0;
+        return imageList.size();
     }
     @ApiOperation(value = "删除测试")
     @PostMapping(value = "/deleteTest")
@@ -85,7 +85,7 @@ public class ImageController {
         int ret = imageService.deleteTest(imageDto);
         System.out.println("翟志成");
         System.out.println(ret);
-        return 0;
+        return ret;
     }
 
 }
