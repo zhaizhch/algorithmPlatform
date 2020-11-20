@@ -8,7 +8,7 @@
 
     <insert id="insertImageInfo">
         insert into t_dl_algoplatform_image (IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY, ALGONAME, ALGODESC, DELETEFLAG, TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH, WORKINGDIR, ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER, INCIDENTID, USEABLEFLAG)
-        values (#{imageId}, #{imageName}, #{imageTag}, #{imagePorts}, #{imageMount}, #{pvcSize}, #{factory},#{algoName},#{algoDesc},#{deleteFlag}, #{tvChannel}, #{pics},#{cpuRequests},#{gpuRequests},#{memRequests},#{algoType},#{config},#{eventType},#{subPath},#{hostPath},#{workingdir},#{env},#{command},#{args},#{dependencyServiceId},#{frameInterval},#{frameNumber},#{incidentId},#{useableFlag})
+        values (#{imageId}, #{imageName}, #{imageTag}, #{imagePorts}, #{imageMount}, #{pvcSize}, #{factory},#{algoName},#{algoDesc},#{deleteFlag}, #{tvChannel}, #{pics},#{cpuRequests},#{gpuRequests},#{memRequests},#{algoType},#{config},#{eventType},#{subPath},#{hostPath},#{workingDir},#{env},#{command},#{args},#{dependencyServiceId},#{frameInterval},#{frameNumber},#{incidentId},#{useableFlag})
     </insert>
     <select id="queryImage" resultMap="ImageInfo">
         select IMAGEID, IMAGENAME, IMAGETAG, IMAGEPORTS, IMAGEMOUNT, PVCSIZE, FACTORY, ALGONAME, ALGODESC, DELETEFLAG, TVCHANNEL, PICS, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, ALGOTYPE, CONFIG, EVENTTYPE, SUBPATH, HOSTPATH, WORKINGDIR, ENV, COMMAND, ARGS, DEPENDENCYSERVICEID, FRAMEINTERVAL, FRAMENUMBER, INCIDENTID, USEABLEFLAG

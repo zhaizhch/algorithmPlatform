@@ -1,6 +1,5 @@
-package com.ehl.demo.Controller;
+package com.ehl.demo.controller;
 
-import com.ehl.demo.entity.ImageDto;
 import com.ehl.demo.entity.Task;
 import com.ehl.demo.entity.TaskDto;
 import com.ehl.demo.service.TaskService;

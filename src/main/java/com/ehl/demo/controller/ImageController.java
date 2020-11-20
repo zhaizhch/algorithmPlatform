@@ -1,4 +1,4 @@
-package com.ehl.demo.Controller;
+package com.ehl.demo.controller;
 
 import com.ehl.demo.entity.Image;
 import com.ehl.demo.entity.ImageDto;

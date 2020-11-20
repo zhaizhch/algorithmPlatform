@@ -23,8 +23,8 @@
         </where>
     </select>
     <insert id="insertTaskInfo">
-        insert into t_dl_algoplatform_task (TASKID, TASKNAME, NAMESPACE, REPLICAS, DELETEFLAG, GPUMODEL, CREATEUSERID, SVCIP, CREATETIME, REALTIMESTREAM, VIDEOFILE,ALGOTYPE)
-        values (#{taskId}, #{taskName}, #{namespace}, #{replicas}, #{deleteFlag}, #{gpuModel}, #{createUserId},#{svcip},#{createtime},#{realTimeStream}, #{videoFile}, #{algoType})
+        insert into t_dl_algoplatform_task (TASKID, TASKNAME, NAMESPACE, REPLICAS, DELETEFLAG, GPUMODEL, CREATEUSERID, SVCIP,TASKTYPE, CREATETIME, REALTIMESTREAM, VIDEOFILE,ALGOTYPE)
+        values (#{taskId}, #{taskName}, #{namespace}, #{replicas}, #{deleteFlag}, #{gpuModel}, #{createUserId},#{svcIp},#{taskType},#{taskCreateTime},#{realTimeStream}, #{videoFile}, #{algoType})
     </insert>
     <update id="updateTask">
         update t_dl_algoplatform_task

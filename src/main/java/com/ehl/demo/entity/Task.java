@@ -17,7 +17,7 @@ public class Task {
     private String taskType;
     private String algoType;
     private Date taskCreateTime;
-    private Integer realtimeStream;
+    private Integer realTimeStream;
     private Integer videoFile;
 
     public String getTaskId() {
@@ -109,11 +109,11 @@ public class Task {
     }
 
     public Integer getRealtimeStream() {
-        return realtimeStream;
+        return realTimeStream;
     }
 
     public void setRealtimeStream(Integer realtimeStream) {
-        this.realtimeStream = realtimeStream;
+        this.realTimeStream = realtimeStream;
     }
 
     public Integer getVideoFile() {
@@ -138,7 +138,7 @@ public class Task {
                 ", taskType='" + taskType + '\'' +
                 ", algoType='" + algoType + '\'' +
                 ", taskCreateTime=" + taskCreateTime +
-                ", realtimeStream=" + realtimeStream +
+                ", realtimeStream=" + realTimeStream +
                 ", videoFile=" + videoFile +
                 '}';
     }

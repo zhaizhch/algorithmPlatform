@@ -8,7 +8,7 @@
 
     <insert id="insertContainerInfo">
         insert into t_dl_algoplatform_container (CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, STORAGEREQUESTS, INFO, ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING, TVCHANNEL, NAMESPACE, HOSTALIASES)
-        values (#{conId}, #{taskId}, #{imageId}, #{command}, #{args}, #{env}, #{portMapping},#{volumeMapping},#{cupRequests},#{gpuRequests}, #{memRequests}, #{storageRequests}, #{info}, #{analysisType}, #{input}, #{output}, #{channelId}, #{deleteFlag}, #{configMapping}, #{tvChannel}, #{namespace}, #{hostAliases})
+        values (#{conId}, #{taskId}, #{imageId}, #{command}, #{args}, #{env}, #{portMapping},#{volumeMapping},#{cpuRequests},#{gpuRequests}, #{memRequests}, #{storageRequests}, #{info}, #{analysisType}, #{input}, #{output}, #{channelId}, #{deleteFlag}, #{configMapping}, #{tvChannel}, #{namespace}, #{hostAliases})
     </insert>
     <select id="queryContainer" resultMap="ContainerInfo">
         select CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, STORAGEREQUESTS, INFO, ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING, TVCHANNEL, NAMESPACE, HOSTALIASES
