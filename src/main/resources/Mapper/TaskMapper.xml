@@ -34,8 +34,9 @@
             </if>
         </set>
         <where>
+            DELETEFLAG=0
             <if test="taskId != null and taskId != ''">
-                TASKID = #{taskId}
+                and TASKID = #{taskId}
             </if>
         </where>
     </update>
@@ -45,7 +46,8 @@
             DELETEFLAG = 1
         </set>
         <where>
-            TASKID = #{taskId}
+            DELETEFLAG=0
+            and TASKID = #{taskId}
         </where>
     </delete>
     <select id="queryTaskIds" parameterType="java.lang.String" resultType="java.lang.String">

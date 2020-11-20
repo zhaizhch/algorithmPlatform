@@ -107,8 +107,9 @@
             </if>
         </set>
         <where>
+            DELETEFLAG=0
             <if test="imageId != null and imageId != ''">
-                IMAGEID = #{imageId}
+                and IMAGEID = #{imageId}
             </if>
         </where>
     </update>
@@ -131,7 +132,8 @@
                 DELETEFLAG = 1
         </set>
         <where>
-                IMAGEID = #{imageId}
+                DELETEFLAG=0
+                and IMAGEID = #{imageId}
         </where>
     </delete>
 
