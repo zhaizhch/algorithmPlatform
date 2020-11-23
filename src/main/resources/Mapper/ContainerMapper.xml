@@ -37,7 +37,7 @@
     <delete id="deleteContainer">
         update t_dl_algoplatform_container
         <set>
-            DELETEFLAG = 1
+            DELETEFLAG = 1,
             <if test="volumeMapping != null and volumeMapping !=''">
                 VOLUMEMAPPING = #{volumeMapping},
             </if>

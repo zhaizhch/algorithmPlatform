@@ -35,13 +35,13 @@ public class TaskController {
 
     @ApiOperation(value = "查询测试")
     @PostMapping(value = "/query")
-    public int taskQuery(HttpServletRequest request,
+    public Task taskQuery(HttpServletRequest request,
                          @ApiParam(value = "用户信息", required = true)
                          @RequestBody TaskDto taskDto){
         Task task=taskService.queryTask(taskDto);
         System.out.println("翟志成");
         System.out.println(task);
-        return 0;
+        return task;
     }
 
     @ApiOperation(value = "更新测试")
@@ -74,6 +74,6 @@ public class TaskController {
         List<String> taskIdsList=taskService.queryTaskIds(taskDto);
         System.out.println("翟志成");
         System.out.println(taskIdsList);
-        return 0;
+        return taskIdsList.size();
     }
 }

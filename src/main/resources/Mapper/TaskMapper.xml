@@ -29,9 +29,7 @@
     <update id="updateTask">
         update t_dl_algoplatform_task
         <set>
-            <if test="videoFile != null and videoFile !=''">
-                VIDEOFILE = #{videoFile},
-            </if>
+                VIDEOFILE = #{videoFile}
         </set>
         <where>
             DELETEFLAG=0
