@@ -1,17 +1,18 @@
 package com.ehl.demo.entity;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class ImageDto {
     // 分组校验
     public static interface addGroup {
     }
-    public static interface deleteGroup {
+    public static interface deleteImageGroup {
     }
     public static interface updateGroup {
     }
 
-    @NotEmpty(message = "imageId不能为空", groups = {deleteGroup.class,updateGroup.class})
+    @NotEmpty(message = "imageId不能为空", groups = {deleteImageGroup.class,updateGroup.class})
     private String imageId;
     @NotEmpty(message = "imageName不能为空", groups = {addGroup.class,updateGroup.class})
     private String imageName;
@@ -34,7 +35,7 @@ public class ImageDto {
     private String config;
     @NotEmpty(message = "algoType不能为空", groups = {addGroup.class,updateGroup.class})
     private String algoType;
-    @NotEmpty(message = "eventType不能为空", groups = {deleteGroup.class})
+    @NotNull(message = "eventType不能为空", groups = {deleteImageGroup.class})
     private Integer eventType;
     private String subPath;
     private String hostPath;
@@ -49,6 +50,15 @@ public class ImageDto {
     private String useableFlag;
     private String namespace;
     private String searchCondition;
+    private Integer authority;
+
+    public Integer getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Integer authority) {
+        this.authority = authority;
+    }
 
     public String getImageId() {
         return imageId;

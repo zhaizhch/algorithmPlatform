@@ -1,10 +1,13 @@
 package com.ehl.demo.utils;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+@Component
 public class FormatCheck {
+    //判断镜像名称格式：首尾字符为数字或小写字母，中间字符为数字或小写字母或特殊字符/.-_
     public Boolean imageNameCheck(String imageName){
         String compile="(^[0-9a-z]+)([0-9a-z./_-]*)([0-9a-z]+$)";
         if(imageName.matches(compile)){
@@ -12,6 +15,8 @@ public class FormatCheck {
         }
         return false;
     }
+
+    //判断镜像标签格式：首尾字符为数字或小写字母，中间字符为数字或小写字母或特殊字符/.-_
     public Boolean tagCheck(String imageName){
         String compile="(^[0-9a-z]+)([0-9a-z./_-]*)([0-9a-z]+$)";
         if(imageName.matches(compile)){
@@ -19,13 +24,20 @@ public class FormatCheck {
         }
         return false;
     }
+
+    //判断镜像描述是否是空格
     public Boolean algoDescCheck(String algoDesc){
+        if(algoDesc==null||algoDesc==""){
+            return true;
+        }
         String compile="\\s+";
         if(algoDesc.matches(compile)){
             return false;
         }
         return true;
     }
+
+    //判断端口格式：端口类型：端口号，端口类型：端口号,端口类型为a-z小写字母。例：ssh：22，jupyter：8888
     public Boolean imagePortsCheck(String imagePorts){
         if(imagePorts==null||imagePorts==""){
             return true;
@@ -53,6 +65,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法的路径名称。例/data-ym/vol_09"
     public Boolean imageMountCheck(String imageMount){
         if(imageMount==null||imageMount==""){
             return true;
@@ -66,12 +80,14 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断正确的配置文件信息，可包含：“A-Za-z0-9.-”例/data/gelin-k8s.config
     public Boolean imageConfigCheck(String imageConfig){
         if(imageConfig==null||imageConfig==""){
             return true;
         }
         String[] splitResult=imageConfig.split("\\,");
-        String compile="^/([A-Za-z0-9_-]+/?)+$";
+        String compile="^/([A-Za-z0-9-.]+/?)+$";
         for(String each:splitResult){
             if(!each.matches(compile)){
                 return false;
@@ -79,6 +95,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法的子目录映射。例/data-ym/vol.config:/data/vol.config
     public Boolean subPathMappingCheck(String subPath){
         if(subPath==""||subPath==null){
             return true;
@@ -100,6 +118,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法的主机目录映射。例/data-ym/vol:/data/vol
     public Boolean hostPathMappingCheck(String hostPath){
         if(hostPath==""||hostPath==null){
             return true;
@@ -121,6 +141,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法的路径名称。例/data-ym/vol_09
     public Boolean workingDirCheck(String workingDir){
         if(workingDir==null||workingDir==""){
             return true;
@@ -131,6 +153,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法的算法类型  0：自研  1：生态  2：其他
     public Boolean algoTypeCheck(String algoType){
         if(algoType==null||algoType==""){
             return true;
@@ -143,6 +167,8 @@ public class FormatCheck {
         }
         return true;
     }
+
+    //判断合法环境变量，例如 NAME:ZHANGSAN9527
     public Boolean envCheck(String env){
         if(env==null||env==""||env.matches("\\s")) {
             return true;
@@ -159,10 +185,11 @@ public class FormatCheck {
             if(envEach.get(0).matches("\\s")||envEach.get(1).matches("\\s")){
                 return false;
             }
-
         }
         return true;
     }
+
+    //判断镜像格式
     public Boolean imageNameTagCheck(String each){
         String[] splitResult=each.split("\\:");
         if(splitResult.length<2){
@@ -170,6 +197,8 @@ public class FormatCheck {
         }
         return (imageNameCheck(splitResult[0])&&tagCheck(splitResult[1]));
     }
+
+    //自研算法算法依赖不能为空
     public Boolean dependencyCheck(String dependencyServiceId){
         if(dependencyServiceId==null||dependencyServiceId==""||dependencyServiceId.matches("\\s")){
             return false;

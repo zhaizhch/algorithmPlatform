@@ -1,5 +1,5 @@
 package com.ehl.demo.common;
-
+import com.ehl.demo.common.DisplayErrorCode;
 import io.swagger.annotations.ApiModelProperty;
 
 public class RestfulEntity<T> {
