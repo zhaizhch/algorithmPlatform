@@ -43,7 +43,6 @@
             </if>
         </set>
         <where>
-
             DELETEFLAG=0 and CONID = #{conId}
         </where>
     </delete>

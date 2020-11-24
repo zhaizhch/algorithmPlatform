@@ -29,8 +29,44 @@
     <update id="updateTask">
         update t_dl_algoplatform_task
         <set>
-                VIDEOFILE = #{videoFile}
+            <if test="videoFile != null and videoFile != ''">
+                and VIDEOFILE = #{videoFile}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and TASKNAME = #{taskName}
+            </if>
+            <if test="namespace != null and namespace != ''">
+                and NAMESPACE = #{namespace}
+            </if>
+            <if test="replicas != null and replicas != ''">
+                and REPLICAS = #{replicas}
+            </if>
+            <if test="gpuModel != null and gpuModel != ''">
+                and GPUMODEL = #{gpuModel}
+            </if>
+            <if test="creatUserId != null and creatUserId != ''">
+                and CREATUSERID = #{creatUserId}
+            </if>
+            <if test="svcIp != null and svcIp != ''">
+                and SVCIP = #{svcIp}
+            </if>
+            <if test="taskType != null and taskType != ''">
+                and TASKTYPE = #{taskType}
+            </if>
+            <if test="taskCreatTime != null and taskCreatTime != ''">
+                and CREATTIME = #{CreatTime}
+            </if>
+            <if test="realTimeStream != null and realTimeStream != ''">
+                and REALTIMESTREAM = #{realTimeStream}
+            </if>
+            <if test="videoFile != null and videoFile != ''">
+                and VIDEOFILE = #{videoFile}
+            </if>
+            <if test="algoType != null and algoType != ''">
+                and ALGOTYPE = #{algoType}
+            </if>
         </set>
+
         <where>
             DELETEFLAG=0
             <if test="taskId != null and taskId != ''">

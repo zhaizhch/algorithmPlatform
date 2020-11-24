@@ -30,7 +30,7 @@ public class TaskController {
         int ret = taskService.insertTest(taskDto);
         System.out.println("翟志成");
         System.out.println(ret);
-        return 0;
+        return ret;
     }
 
     @ApiOperation(value = "查询测试")

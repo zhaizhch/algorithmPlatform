@@ -4,25 +4,25 @@ import javax.validation.constraints.NotEmpty;
 
 public class ImageDto {
     // 分组校验
-    public static interface queryGroup {
-    }
     public static interface addGroup {
     }
     public static interface deleteGroup {
     }
+    public static interface updateGroup {
+    }
 
-    @NotEmpty(message = "imageId不能为空", groups = {deleteGroup.class})
+    @NotEmpty(message = "imageId不能为空", groups = {deleteGroup.class,updateGroup.class})
     private String imageId;
-    @NotEmpty(message = "imageName不能为空", groups = {queryGroup.class,addGroup.class})
+    @NotEmpty(message = "imageName不能为空", groups = {addGroup.class,updateGroup.class})
     private String imageName;
-    @NotEmpty(message = "imageTag不能为空", groups = {queryGroup.class,addGroup.class})
+    @NotEmpty(message = "imageTag不能为空", groups = {addGroup.class,updateGroup.class})
     private String imageTag;
     private String imagePorts;
     private String imageMount;
     private Integer pvcSize;
-    @NotEmpty(message = "factory不能为空", groups = {addGroup.class})
+    @NotEmpty(message = "factory不能为空", groups = {addGroup.class,updateGroup.class})
     private String factory;
-    @NotEmpty(message = "algoname不能为空", groups = {addGroup.class})
+    @NotEmpty(message = "algoname不能为空", groups = {addGroup.class,updateGroup.class})
     private String algoName;
     private String algoDesc;
     private String deleteFlag;
@@ -32,8 +32,9 @@ public class ImageDto {
     private Integer gpuRequests;
     private Integer memRequests;
     private String config;
-    @NotEmpty(message = "algoType不能为空", groups = {addGroup.class})
+    @NotEmpty(message = "algoType不能为空", groups = {addGroup.class,updateGroup.class})
     private String algoType;
+    @NotEmpty(message = "eventType不能为空", groups = {deleteGroup.class})
     private Integer eventType;
     private String subPath;
     private String hostPath;
