@@ -23,7 +23,7 @@ import java.util.List;
 public class ImageService {
     private static final Logger logger = LoggerFactory.getLogger(ImageService.class);
     @Autowired
-    ImageMapper imageMapper;
+    private ImageMapper imageMapper;
     @Autowired
     private FormatCheck formatCheck;
 

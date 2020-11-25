@@ -1,8 +1,6 @@
 package com.ehl.demo.utils;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component
@@ -179,10 +177,10 @@ public class FormatCheck {
                 return false;
             }
             String[] eachSplit=each.split("\\:");
-            if(envEach.size()!=2){
+            if(eachSplit.length!=2){
                 return false;
             }
-            if(envEach.get(0).matches("\\s")||envEach.get(1).matches("\\s")){
+            if(eachSplit[0].matches("\\s")||eachSplit[1].matches("\\s")){
                 return false;
             }
         }

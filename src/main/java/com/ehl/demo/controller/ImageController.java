@@ -33,17 +33,6 @@ public class ImageController {
         return ret;
     }
 
-/*
-    @ApiOperation(value = "镜像查询")
-    @PostMapping(value = "/queryImage")
-    public int queryImageTest(@ApiParam(value = "用户信息", required = true)
-                    @RequestBody ImageDto imageDto){
-        List<Image>imageList = imageService.queryImageTest(imageDto);
-        System.out.println(imageList.size());
-        return imageList.size();
-    }
-*/
-
     @ApiOperation(value = "条件查询")
     @PostMapping(value = "/queryByCondition")
     public RestfulEntity<JSONObject> queryImageByConditionTest(@ApiParam(value = "用户信息", required = true)
@@ -67,16 +56,6 @@ public class ImageController {
         RestfulEntity<JSONObject>ret= imageService.updateImageInfoTest(imageDto);
         return ret;
     }
-
-/*    @ApiOperation(value = "依赖查询")
-    @PostMapping(value = "/dependencyTest")
-    public int dependencyImageTest(@ApiParam(value = "用户信息", required = true)
-                                         @RequestBody ImageDto imageDto){
-        List<Image>imageList = imageService.queryDependencyTest(imageDto);
-        System.out.println("翟志成");
-        System.out.println(imageList.size());
-        return imageList.size();
-    }*/
 
     @ApiOperation(value = "镜像删除")
     @PostMapping(value = "/deleteTest")
