@@ -229,18 +229,18 @@ public class ImageService {
         ImageDto imageDto1 = new ImageDto();
         imageDto1.setImageId(imageDto.getImageId());
         List<Image> deleteSearch = queryImageInfo(imageDto1);
-        if (deleteSearch.size() == 0 || deleteSearch == null) {
+        if (deleteSearch.isEmpty()|| deleteSearch == null) {
             return RestfulEntity.getFailure(DisplayErrorCode.imageIdErrCheck);
         } else {
             //查询是否是被依赖镜像
             ImageDto imageDto2 = new ImageDto();
-            imageDto2.setEventType(imageDto.getEventType());
+            imageDto2.setEventType(deleteSearch.get(0).getEventType());
             List<Image> dependencyCheck = queryImageDependency(imageDto2);
-            if (dependencyCheck.size() != 0 && dependencyCheck != null) {
+            if ((!dependencyCheck.isEmpty()) && dependencyCheck != null) {
                 return RestfulEntity.getFailure(DisplayErrorCode.imageDependencyErr);
             }
             //判断删除权限
-            if (imageDto.getUserResult().getAuthority() != "3" && !(deleteSearch.get(0).getImageName().startsWith(imageDto.getUserResult().getNamespace()))) {
+            if (imageDto.getUserResult().getAuthority() .equals("3")  && !(deleteSearch.get(0).getImageName().startsWith(imageDto.getUserResult().getNamespace()))) {
                 return RestfulEntity.getFailure(DisplayErrorCode.authorityErr);
             }
         }

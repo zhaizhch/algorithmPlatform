@@ -35,7 +35,6 @@ public class ImageDto {
     private String config;
     @NotEmpty(message = "algoType不能为空", groups = {addGroup.class,updateGroup.class})
     private String algoType;
-    @NotNull(message = "eventType不能为空", groups = {deleteImageGroup.class})
     private Integer eventType;
     private String subPath;
     private String hostPath;
