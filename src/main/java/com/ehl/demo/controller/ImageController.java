@@ -1,5 +1,6 @@
 package com.ehl.demo.controller;
 
+import cn.hutool.core.io.FileUtil;
 import com.ehl.demo.common.RestfulEntity;
 import com.ehl.demo.entity.Image;
 import com.ehl.demo.entity.ImageDto;
@@ -14,22 +15,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Api(value = "镜像管理", tags = "镜像管理接口")
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/algoPlatform/images")
 public class ImageController {
 
     @Autowired
     private ImageService imageService;
 
+    @ApiOperation(value = "镜像下载")
+    @PostMapping(value = "/_load")
+    public RestfulEntity<JSONObject> loadImage(@ApiParam(value = "用户信息", required = true)
+                                                @RequestBody @Validated(ImageDto.addGroup.class) ImageDto imageDto){
+        RestfulEntity<JSONObject> ret = imageService.imageInsert(imageDto);
+        return ret;
+    }
+
     @ApiOperation(value = "镜像插入")
     @PostMapping(value = "/insert")
     public RestfulEntity<JSONObject> insertTest(@ApiParam(value = "用户信息", required = true)
                               @RequestBody @Validated(ImageDto.addGroup.class) ImageDto imageDto){
-        RestfulEntity<JSONObject> ret = imageService.insertTest(imageDto);
+        RestfulEntity<JSONObject> ret = imageService.imageInsert(imageDto);
         return ret;
     }
 
@@ -37,16 +49,8 @@ public class ImageController {
     @PostMapping(value = "/queryByCondition")
     public RestfulEntity<JSONObject> queryImageByConditionTest(@ApiParam(value = "用户信息", required = true)
                      @RequestBody ImageDto imageDto) {
-        List<Image>imageList = imageService.queryImageByConditionTest(imageDto);
-        JSONObject result = new JSONObject();
-
-        if(imageList.size()==0){
-            result.put("data","no such results");
-        }else{
-            result.put("data",imageList);
-        }
-        return RestfulEntity.getSuccess(result,"查询成功");
-
+        RestfulEntity<JSONObject>result = imageService.queryImageInfoByCondition(imageDto);
+        return result;
     }
 
     @ApiOperation(value = "镜像更新")
@@ -61,8 +65,28 @@ public class ImageController {
     @PostMapping(value = "/deleteTest")
     public RestfulEntity<JSONObject> deleteTest(@ApiParam(value = "用户信息", required = true)
                           @RequestBody @Validated(ImageDto.deleteImageGroup.class) ImageDto imageDto){
-        RestfulEntity<JSONObject>ret=imageService.deleteTest(imageDto);
+        RestfulEntity<JSONObject>ret=imageService.deleteImageInfo(imageDto);
         return ret;
+    }
+    @ApiOperation(value = "镜像下载")
+    @PostMapping(value = "/downloadImage")
+    public RestfulEntity<JSONObject> downloadImage(@ApiParam(value = "用户信息", required = true)
+                                                @RequestBody  ImageDto imageDto) throws IOException {
+        RestfulEntity<JSONObject>ret=imageService.downloadImage(imageDto.getSearchCondition());
+        return ret;
+    }
+
+    @ApiOperation(value = "镜像上传")
+    @PostMapping(value = "/_upload")
+    public RestfulEntity<JSONObject> loadImage(@ApiParam(value = "用户信息", required = true)
+                                               @RequestBody MultipartFile file) throws Exception {
+
+        File newFile = new File(file.getOriginalFilename());
+        File temp = FileUtil.writeFromStream(file.getInputStream(), newFile);
+        //imageService.uploadImage(newFile);
+        RestfulEntity<JSONObject> res = imageService.uploadImage(newFile);
+        FileUtil.del(temp);
+        return res;
     }
 
 }

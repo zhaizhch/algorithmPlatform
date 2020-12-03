@@ -1,6 +1,15 @@
 package com.ehl.demo.common;
 
 public enum DisplayErrorCode {
+    taskCheck(2,"该任务名称已被占用"),
+    pvcSizeCheck(231,"pvc申请容量范围为[1,20]"),
+    imageCheck(2,"该镜像未注册"),
+    hostAliasesCheck(208,"域名格式错误，格式为:“ip  hostname，ip hostname”、IP格式错误、域名格式错误。首尾字符为数字或小写字母，中间字符为数字或小写字母或特殊字符/.-_"),
+    getStartTypeCheck(202,"starttype:0或1   立即启动方式 0:是,1:否"),
+    algoTypeCheck(202,"algotype:0或1   0视频分析、1图片分析"),
+    taskTypeCheck(202,"tasktype:0或1   0：后台任务、1：在线服务"),
+    taskNameCheck(213,"算子任务名称格式：首位字符为小写字母，中间字符为数字或小写字母或特殊字符- ，结尾为小写字母或数字"),
+    imageTagCheck(212,"镜像格式错误"),
     imageNameCheck(221,"镜像名称格式：首尾字符为数字或小写字母，中间字符为数字或小写字母或特殊字符/.-_"),
     tagCheck(222,"tag格式：首尾字符为数字或小写字母，中间字符为数字或小写字母或特殊字符.-_"),
     formatCheck(202,"输入格式有误"),

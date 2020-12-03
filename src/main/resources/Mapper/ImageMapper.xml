@@ -24,6 +24,9 @@
             <if test="imageTag != null and imageTag != ''">
                 and IMAGETAG = #{imageTag}
             </if>
+            <if test="eventType != null and eventType != ''">
+                and EVENTTYPE = #{eventType}
+            </if>
         </where>
     </select>
     <select id="queryImageByCondition" resultMap="ImageInfo">

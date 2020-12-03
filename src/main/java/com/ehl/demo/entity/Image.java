@@ -49,13 +49,6 @@ public class Image {
         this.imageName = imageName;
     }
 
-    public String getImageTag() {
-        return imageTag;
-    }
-
-    public void setImageTag(String imageTag) {
-        this.imageTag = imageTag;
-    }
 
     public String getImagePorts() {
         return imagePorts;
@@ -263,6 +256,14 @@ public class Image {
 
     public void setUseableFlag(String useableFlag) {
         this.useableFlag = useableFlag;
+    }
+
+    public String getImageTag() {
+        return imageTag;
+    }
+
+    public void setImageTag(String imageTag) {
+        this.imageTag = imageTag;
     }
 
     @Override

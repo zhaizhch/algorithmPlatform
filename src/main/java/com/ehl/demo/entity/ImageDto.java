@@ -48,16 +48,25 @@ public class ImageDto {
     private Integer frameNumber;
     private String incidentId;
     private String useableFlag;
-    private String namespace;
     private String searchCondition;
-    private Integer authority;
+    private UserResult userResult;
+    private String namespace;
 
-    public Integer getAuthority() {
-        return authority;
+
+    public String getNamespace() {
+        return namespace;
     }
 
-    public void setAuthority(Integer authority) {
-        this.authority = authority;
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public UserResult getUserResult() {
+        return userResult;
+    }
+
+    public void setUserResult(UserResult userResult) {
+        this.userResult = userResult;
     }
 
     public String getImageId() {
@@ -292,14 +301,6 @@ public class ImageDto {
         this.useableFlag = useableFlag;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
     public String getSearchCondition() {
         return searchCondition;
     }
@@ -340,8 +341,8 @@ public class ImageDto {
                 ", frameNumber=" + frameNumber +
                 ", incidentId='" + incidentId + '\'' +
                 ", useableFlag='" + useableFlag + '\'' +
-                ", namespace='" + namespace + '\'' +
                 ", searchCondition='" + searchCondition + '\'' +
+                ", userResult=" + userResult +
                 '}';
     }
 }

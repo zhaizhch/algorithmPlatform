@@ -1,7 +1,10 @@
 package com.ehl.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ehl.demo.common.RestfulEntity;
 import com.ehl.demo.entity.Task;
 import com.ehl.demo.entity.TaskDto;
+import com.ehl.demo.entity.TaskSaveDto;
 import com.ehl.demo.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,10 +27,10 @@ public class TaskController {
 
     @ApiOperation(value = "插入测试")
     @PostMapping(value = "/insert")
-    public int taskInsert(HttpServletRequest request,
-                              @ApiParam(value = "用户信息", required = true)
-                              @RequestBody TaskDto taskDto){
-        int ret = taskService.insertTest(taskDto);
+    public RestfulEntity<JSONObject> taskInsert(HttpServletRequest request,
+                                                @ApiParam(value = "用户信息", required = true)
+                              @RequestBody TaskSaveDto taskSaveDto){
+        RestfulEntity<JSONObject> ret = taskService.saveToTask(taskSaveDto);
         System.out.println("翟志成");
         System.out.println(ret);
         return ret;
