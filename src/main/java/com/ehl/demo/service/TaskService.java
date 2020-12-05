@@ -31,78 +31,78 @@ public class TaskService {
     @Autowired
     private ImageMapper imageMapper;
 
-    public RestfulEntity<JSONObject> saveToTask(TaskSaveDto taskSaveDto){
-        if(taskSaveDto.getNamespace()==null||taskSaveDto.getNamespace().equals("")){
+    public RestfulEntity<JSONObject> saveToTask(TaskSaveDto taskSaveDto) {
+        if (taskSaveDto.getNamespace() == null || taskSaveDto.getNamespace().equals("")) {
             taskSaveDto.setNamespace(taskSaveDto.getUserResult().getNamespace());
         }
         //判断输入合法性
-        RestfulEntity<JSONObject>inputValidCheck=taskSaveDtoCheck(taskSaveDto);
-        if(!inputValidCheck.getStatus().equals("0")){
+        RestfulEntity<JSONObject> inputValidCheck = taskSaveDtoCheck(taskSaveDto);
+        if (!inputValidCheck.getStatus().equals("0")) {
             return inputValidCheck;
         }
         //判断任务名称是否被占用
-        TaskDto taskDto=new TaskDto();
+        TaskDto taskDto = new TaskDto();
         taskDto.setNamespace(taskSaveDto.getNamespace());
         taskDto.setTaskName(taskSaveDto.getTaskName());
-        Task task=taskMapper.queryTask(taskDto);
-        if(task!=null){
+        Task task = taskMapper.queryTask(taskDto);
+        if (task != null) {
             return RestfulEntity.getFailure(DisplayErrorCode.taskCheck);
         }
         //task和container插入到数据库中
-        RestfulEntity<JSONObject>result=taskSave(taskSaveDto);
+        RestfulEntity<JSONObject> result = taskSave(taskSaveDto);
 
         return result;
     }
 
-    public Task queryTask(TaskDto taskDto){
-        Task task= taskMapper.queryTask(taskDto);
+    public Task queryTask(TaskDto taskDto) {
+        Task task = taskMapper.queryTask(taskDto);
         return task;
     }
 
-    public int updateTask(TaskDto taskDto){
-        int ret=taskMapper.updateTask(taskDto);
+    public int updateTask(TaskDto taskDto) {
+        int ret = taskMapper.updateTask(taskDto);
         return ret;
     }
 
-    public int deleteTask(TaskDto taskDto){
-        int ret= taskMapper.deleteTask(taskDto);
+    public int deleteTask(TaskDto taskDto) {
+        int ret = taskMapper.deleteTask(taskDto);
         return ret;
     }
 
-    public List<String> queryTaskIds(TaskDto taskDto){
-        List<String> taskIdsList=taskMapper.queryTaskIds(taskDto);
+    public List<String> queryTaskIds(TaskDto taskDto) {
+        List<String> taskIdsList = taskMapper.queryTaskIds(taskDto);
         return taskIdsList;
     }
 
     //检验输入taskSaveDto的有效性
-    private RestfulEntity<JSONObject> taskSaveDtoCheck(TaskSaveDto taskSaveDto){
-        if(!formatCheck.imageNameTagCheck(taskSaveDto.getImageName())){
+    private RestfulEntity<JSONObject> taskSaveDtoCheck(TaskSaveDto taskSaveDto) {
+        if (!formatCheck.imageNameTagCheck(taskSaveDto.getImageName())) {
             return RestfulEntity.getFailure(DisplayErrorCode.imageTagCheck);
         }
-        if(!formatCheck.taskNameCheck(taskSaveDto.getTaskName())){
+        if (!formatCheck.taskNameCheck(taskSaveDto.getTaskName())) {
             return RestfulEntity.getFailure(DisplayErrorCode.taskNameCheck);
         }
-        if(!formatCheck.taskTypeCheck(taskSaveDto.getTaskType())){
+        if (!formatCheck.taskTypeCheck(taskSaveDto.getTaskType())) {
             return RestfulEntity.getFailure(DisplayErrorCode.taskTypeCheck);
         }
-        if(!formatCheck.algoTypeCheck(taskSaveDto.getAlgoType())){
+        if (!formatCheck.algoTypeCheck(taskSaveDto.getAlgoType())) {
             return RestfulEntity.getFailure(DisplayErrorCode.algoTypeCheck);
         }
-        if(!formatCheck.numberStartTypeCheck(taskSaveDto.getStartType())){
+        if (!formatCheck.numberStartTypeCheck(taskSaveDto.getStartType())) {
             return RestfulEntity.getFailure(DisplayErrorCode.getStartTypeCheck);
         }
-        if(!formatCheck.hostAliasesCheck(taskSaveDto.getHostAliases())){
+        if (!formatCheck.hostAliasesCheck(taskSaveDto.getHostAliases())) {
             return RestfulEntity.getFailure(DisplayErrorCode.hostAliasesCheck);
         }
         return RestfulEntity.getSuccess("输入有效");
     }
 
     //task和container插入数据库
-    private RestfulEntity<JSONObject> taskSave(TaskSaveDto taskSaveDto){
+    private RestfulEntity<JSONObject> taskSave(TaskSaveDto taskSaveDto) {
         //task初始化
-        TaskDto taskDto=new TaskDto();
+        TaskDto taskDto = new TaskDto();
         taskDto.setDeleteFlag("0");
-        String taskId=CommonUtils.getRandomStr();
+        String taskId = CommonUtils.getRandomStr();
         taskDto.setTaskId(taskId);
         taskDto.setTaskName(taskSaveDto.getTaskName());
         taskDto.setNamespace(taskSaveDto.getNamespace());
@@ -112,22 +112,22 @@ public class TaskService {
         taskDto.setSvcIp(null);
         taskDto.setTaskType(taskSaveDto.getTaskType());
         taskDto.setAlgoType(taskSaveDto.getAlgoType());
-        Date date=new Date();
+        Date date = new Date();
         taskDto.setTaskCreateTime(date);
         taskDto.setRealtimeStream(0);
         taskDto.setVideoFile(0);
         //判断镜像是否被注册
-        String[] imageNameTag=taskSaveDto.getImageName().split("\\:");
-        ImageDto imageDto=new ImageDto();
+        String[] imageNameTag = taskSaveDto.getImageName().split("\\:");
+        ImageDto imageDto = new ImageDto();
         imageDto.setImageName(imageNameTag[0]);
         imageDto.setImageTag(imageNameTag[1]);
-        List<Image> imageList=imageMapper.queryImage(imageDto);
-        if(imageList.size()==0||imageList==null){
+        List<Image> imageList = imageMapper.queryImage(imageDto);
+        if (imageList.size() == 0 || imageList == null) {
             return RestfulEntity.getFailure(DisplayErrorCode.imageCheck);
         }
-        Image image=imageList.get(0);
+        Image image = imageList.get(0);
         //container初始化
-        ContainerDto containerDto=new ContainerDto();
+        ContainerDto containerDto = new ContainerDto();
         containerDto.setConId(CommonUtils.getRandomStr());
         containerDto.setTaskId(taskId);
         containerDto.setImageId(image.getImageId());
@@ -139,41 +139,41 @@ public class TaskService {
         containerDto.setTvChannel(taskSaveDto.getTvChannel());
         containerDto.setNamespace(taskSaveDto.getNamespace());
         containerDto.setHostAliases(taskSaveDto.getHostAliases());
-        if(taskSaveDto.getArgs()==null||taskSaveDto.getArgs().equals("")){
+        if (taskSaveDto.getArgs() == null || taskSaveDto.getArgs().equals("")) {
             taskSaveDto.setArgs(image.getArgs());
         }
         containerDto.setArgs(taskSaveDto.getArgs());
-        if(taskSaveDto.getEnv()==null||taskSaveDto.getEnv().equals("")){
+        if (taskSaveDto.getEnv() == null || taskSaveDto.getEnv().equals("")) {
             taskSaveDto.setEnv(image.getEnv());
         }
         containerDto.setEnv(taskSaveDto.getEnv());
-        if(taskSaveDto.getCpuRequests()==null){
-            if(image.getCpuRequests()==null){
+        if (taskSaveDto.getCpuRequests() == null) {
+            if (image.getCpuRequests() == null) {
                 containerDto.setCpuRequests(500);
-            }else{
+            } else {
                 containerDto.setCpuRequests(image.getCpuRequests());
             }
         }
-        if(taskSaveDto.getGpuRequests()==null){
-            if(image.getGpuRequests()==null){
+        if (taskSaveDto.getGpuRequests() == null) {
+            if (image.getGpuRequests() == null) {
                 containerDto.setGpuRequests(0);
-            }else{
+            } else {
                 containerDto.setGpuRequests(image.getGpuRequests());
             }
         }
-        if(taskSaveDto.getMemRequests()==null){
-            if(image.getMemRequests()==null){
+        if (taskSaveDto.getMemRequests() == null) {
+            if (image.getMemRequests() == null) {
                 containerDto.setMemRequests(1024);
-            }else{
+            } else {
                 containerDto.setMemRequests(image.getMemRequests());
             }
         }
         //保存task
-        try{
+        try {
             taskMapper.insertTaskInfo(taskDto);
             containerMapper.insertContainerInfo(containerDto);
             return RestfulEntity.getSuccess("taskDto、containerDto插入成功");
-        }catch(Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info("插入数据失败, insertTaskInfoList -> TaskDto = " + taskDto);
             logger.info("插入数据失败, insertcontainerInfoList -> ContainerDto = " + containerDto);

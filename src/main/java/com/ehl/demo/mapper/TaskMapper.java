@@ -16,8 +16,12 @@ import java.util.List;
 @Component
 public interface TaskMapper {
     Task queryTask(TaskDto taskDto);
+
     int insertTaskInfo(TaskDto taskDto);
+
     int updateTask(TaskDto taskDto);
+
     int deleteTask(TaskDto taskDto);
+
     List<String> queryTaskIds(TaskDto taskDto);
 }

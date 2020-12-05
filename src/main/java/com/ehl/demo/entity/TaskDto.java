@@ -106,7 +106,8 @@ public class TaskDto {
     }
 
     public Integer getRealtimeStream() {
-        return realTimeStream;  }
+        return realTimeStream;
+    }
 
     public void setRealtimeStream(Integer realtimeStream) {
         this.realTimeStream = realtimeStream;

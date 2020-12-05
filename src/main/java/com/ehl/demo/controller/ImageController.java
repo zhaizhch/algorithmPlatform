@@ -2,7 +2,6 @@ package com.ehl.demo.controller;
 
 import cn.hutool.core.io.FileUtil;
 import com.ehl.demo.common.RestfulEntity;
-import com.ehl.demo.entity.Image;
 import com.ehl.demo.entity.ImageDto;
 import com.ehl.demo.service.ImageService;
 import io.swagger.annotations.Api;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Api(value = "镜像管理", tags = "镜像管理接口")
 @RestController
@@ -32,7 +30,7 @@ public class ImageController {
     @ApiOperation(value = "镜像插入")
     @PostMapping(value = "/_register")
     public RestfulEntity<JSONObject> insertTest(@ApiParam(value = "用户信息", required = true)
-                              @RequestBody @Validated(ImageDto.addGroup.class) ImageDto imageDto){
+                                                @RequestBody @Validated(ImageDto.addGroup.class) ImageDto imageDto) {
         RestfulEntity<JSONObject> ret = imageService.imageInsert(imageDto);
         return ret;
     }
@@ -40,31 +38,32 @@ public class ImageController {
     @ApiOperation(value = "条件查询")
     @PostMapping(value = "/_search")
     public RestfulEntity<JSONObject> queryImageByConditionTest(@ApiParam(value = "用户信息", required = true)
-                     @RequestBody ImageDto imageDto) {
-        RestfulEntity<JSONObject>result = imageService.queryImageInfoByCondition(imageDto);
+                                                               @RequestBody ImageDto imageDto) {
+        RestfulEntity<JSONObject> result = imageService.queryImageInfoByCondition(imageDto);
         return result;
     }
 
     @ApiOperation(value = "镜像更新")
     @PostMapping(value = "/_update")
     public RestfulEntity<JSONObject> updateTest(@ApiParam(value = "用户信息", required = true)
-                          @RequestBody  @Validated(ImageDto.updateGroup.class) ImageDto imageDto){
-        RestfulEntity<JSONObject>ret= imageService.updateImageInfoTest(imageDto);
+                                                @RequestBody @Validated(ImageDto.updateGroup.class) ImageDto imageDto) {
+        RestfulEntity<JSONObject> ret = imageService.updateImageInfoTest(imageDto);
         return ret;
     }
 
     @ApiOperation(value = "镜像删除")
     @PostMapping(value = "/_delete")
     public RestfulEntity<JSONObject> deleteTest(@ApiParam(value = "用户信息", required = true)
-                          @RequestBody @Validated(ImageDto.deleteImageGroup.class) ImageDto imageDto){
-        RestfulEntity<JSONObject>ret=imageService.deleteImageInfo(imageDto);
+                                                @RequestBody @Validated(ImageDto.deleteImageGroup.class) ImageDto imageDto) {
+        RestfulEntity<JSONObject> ret = imageService.deleteImageInfo(imageDto);
         return ret;
     }
+
     @ApiOperation(value = "镜像配置信息下载")
     @PostMapping(value = "/_load")
     public RestfulEntity<JSONObject> downloadImage(@ApiParam(value = "用户信息", required = true)
-                                                @RequestBody  ImageDto imageDto) throws IOException {
-        RestfulEntity<JSONObject>ret=imageService.downloadImage(imageDto.getSearchCondition());
+                                                   @RequestBody ImageDto imageDto) throws IOException {
+        RestfulEntity<JSONObject> ret = imageService.downloadImage(imageDto.getSearchCondition());
         return ret;
     }
 

@@ -3,6 +3,16 @@ package com.ehl.demo.entity;
 public class UserResult {
     private String authority;
     private String namespace;
+    private String userName;
+    private String userId;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getAuthority() {
         return authority;
@@ -20,11 +30,21 @@ public class UserResult {
         this.namespace = namespace;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "UserResult{" +
                 "authority='" + authority + '\'' +
                 ", namespace='" + namespace + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

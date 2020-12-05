@@ -15,23 +15,23 @@ public class ContainerService {
     @Autowired
     ContainerMapper containerMapper;
 
-    public int insertTest(ContainerDto containerDto){
-        int ret=containerMapper.insertContainerInfo(containerDto);
+    public int insertTest(ContainerDto containerDto) {
+        int ret = containerMapper.insertContainerInfo(containerDto);
         return ret;
     }
 
-    public List<Container> queryContainer(ContainerDto containerDto){
-        List<Container>containerList=containerMapper.queryContainer(containerDto);
+    public List<Container> queryContainer(ContainerDto containerDto) {
+        List<Container> containerList = containerMapper.queryContainer(containerDto);
         return containerList;
     }
 
-    public int updateTest(ContainerDto containerDto){
-        int ret=containerMapper.updateContainer(containerDto);
+    public int updateTest(ContainerDto containerDto) {
+        int ret = containerMapper.updateContainer(containerDto);
         return ret;
     }
 
-    public int deleteTest(ContainerDto containerDto){
-        int ret=containerMapper.deleteContainer(containerDto);
+    public int deleteTest(ContainerDto containerDto) {
+        int ret = containerMapper.deleteContainer(containerDto);
         return ret;
     }
 

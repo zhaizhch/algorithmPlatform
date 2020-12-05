@@ -29,9 +29,8 @@ public class TaskController {
     @PostMapping(value = "/insert")
     public RestfulEntity<JSONObject> taskInsert(HttpServletRequest request,
                                                 @ApiParam(value = "用户信息", required = true)
-                              @RequestBody TaskSaveDto taskSaveDto){
+                                                @RequestBody TaskSaveDto taskSaveDto) {
         RestfulEntity<JSONObject> ret = taskService.saveToTask(taskSaveDto);
-        System.out.println("翟志成");
         System.out.println(ret);
         return ret;
     }
@@ -39,10 +38,9 @@ public class TaskController {
     @ApiOperation(value = "查询测试")
     @PostMapping(value = "/query")
     public Task taskQuery(HttpServletRequest request,
-                         @ApiParam(value = "用户信息", required = true)
-                         @RequestBody TaskDto taskDto){
-        Task task=taskService.queryTask(taskDto);
-        System.out.println("翟志成");
+                          @ApiParam(value = "用户信息", required = true)
+                          @RequestBody TaskDto taskDto) {
+        Task task = taskService.queryTask(taskDto);
         System.out.println(task);
         return task;
     }
@@ -51,9 +49,8 @@ public class TaskController {
     @PostMapping(value = "/update")
     public int taskUpdate(HttpServletRequest request,
                           @ApiParam(value = "用户信息", required = true)
-                          @RequestBody TaskDto taskDto){
-        int ret=taskService.updateTask(taskDto);
-        System.out.println("翟志成");
+                          @RequestBody TaskDto taskDto) {
+        int ret = taskService.updateTask(taskDto);
         System.out.println(ret);
         return ret;
     }
@@ -62,9 +59,8 @@ public class TaskController {
     @PostMapping(value = "/delete")
     public int taskDelete(HttpServletRequest request,
                           @ApiParam(value = "用户信息", required = true)
-                          @RequestBody TaskDto taskDto){
-        int ret=taskService.deleteTask(taskDto);
-        System.out.println("翟志成");
+                          @RequestBody TaskDto taskDto) {
+        int ret = taskService.deleteTask(taskDto);
         System.out.println(ret);
         return ret;
     }
@@ -73,9 +69,8 @@ public class TaskController {
     @PostMapping(value = "/queryTaskIds")
     public int taskIdsQuery(HttpServletRequest request,
                             @ApiParam(value = "用户信息", required = true)
-                            @RequestBody TaskDto taskDto){
-        List<String> taskIdsList=taskService.queryTaskIds(taskDto);
-        System.out.println("翟志成");
+                            @RequestBody TaskDto taskDto) {
+        List<String> taskIdsList = taskService.queryTaskIds(taskDto);
         System.out.println(taskIdsList);
         return taskIdsList.size();
     }

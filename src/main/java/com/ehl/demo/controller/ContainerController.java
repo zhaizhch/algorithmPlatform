@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/container")
 public class ContainerController {
     @Autowired
-    ContainerService containerService;
+    private ContainerService containerService;
 
     @ApiOperation(value = "插入测试")
     @PostMapping(value = "/insert")
@@ -28,7 +28,7 @@ public class ContainerController {
                           @ApiParam(value = "用户信息", required = true)
                           @RequestBody ContainerDto containerDto) {
 
-        int ret=containerService.insertTest(containerDto);
+        int ret = containerService.insertTest(containerDto);
         return ret;
     }
 
@@ -36,10 +36,9 @@ public class ContainerController {
     @PostMapping(value = "/query")
     public int queryTest(HttpServletRequest request,
                          @ApiParam(value = "用户信息", required = true)
-                         @RequestBody ContainerDto containerDto){
+                         @RequestBody ContainerDto containerDto) {
 
-        List<Container> containerList=containerService.queryContainer(containerDto);
-        System.out.println("翟志成");
+        List<Container> containerList = containerService.queryContainer(containerDto);
         System.out.println(containerList);
         return containerList.size();
     }
@@ -48,9 +47,8 @@ public class ContainerController {
     @PostMapping(value = "/update")
     public int updayeTest(HttpServletRequest request,
                           @ApiParam(value = "用户信息", required = true)
-                          @RequestBody ContainerDto containerDto){
-        int ret=containerService.updateTest(containerDto);
-        System.out.println("翟志成");
+                          @RequestBody ContainerDto containerDto) {
+        int ret = containerService.updateTest(containerDto);
         System.out.println(ret);
         return ret;
     }
@@ -59,9 +57,8 @@ public class ContainerController {
     @PostMapping(value = "/delete")
     public int deleteTest(HttpServletRequest request,
                           @ApiParam(value = "用户信息", required = true)
-                          @RequestBody ContainerDto containerDto){
-        int ret=containerService.deleteTest(containerDto);
-        System.out.println("翟志成");
+                          @RequestBody ContainerDto containerDto) {
+        int ret = containerService.deleteTest(containerDto);
         System.out.println(ret);
         return ret;
     }

@@ -7,23 +7,25 @@ public class ImageDto {
     // 分组校验
     public static interface addGroup {
     }
+
     public static interface deleteImageGroup {
     }
+
     public static interface updateGroup {
     }
 
-    @NotEmpty(message = "imageId不能为空", groups = {deleteImageGroup.class,updateGroup.class})
+    @NotEmpty(message = "imageId不能为空", groups = {deleteImageGroup.class, updateGroup.class})
     private String imageId;
-    @NotEmpty(message = "imageName不能为空", groups = {addGroup.class,updateGroup.class})
+    @NotEmpty(message = "imageName不能为空", groups = {addGroup.class, updateGroup.class})
     private String imageName;
-    @NotEmpty(message = "imageTag不能为空", groups = {addGroup.class,updateGroup.class})
+    @NotEmpty(message = "imageTag不能为空", groups = {addGroup.class, updateGroup.class})
     private String imageTag;
     private String imagePorts;
     private String imageMount;
     private Integer pvcSize;
-    @NotEmpty(message = "factory不能为空", groups = {addGroup.class,updateGroup.class})
+    @NotEmpty(message = "factory不能为空", groups = {addGroup.class, updateGroup.class})
     private String factory;
-    @NotEmpty(message = "algoname不能为空", groups = {addGroup.class,updateGroup.class})
+    @NotEmpty(message = "algoname不能为空", groups = {addGroup.class, updateGroup.class})
     private String algoName;
     private String algoDesc;
     private String deleteFlag;
@@ -33,7 +35,7 @@ public class ImageDto {
     private Integer gpuRequests;
     private Integer memRequests;
     private String config;
-    @NotEmpty(message = "algoType不能为空", groups = {addGroup.class,updateGroup.class})
+    @NotEmpty(message = "algoType不能为空", groups = {addGroup.class, updateGroup.class})
     private String algoType;
     private Integer eventType;
     private String subPath;

@@ -14,9 +14,14 @@ import java.util.List;
 @Component
 public interface ImageMapper {
     int insertImageInfo(ImageDto imageDto);
+
     List<Image> queryImage(ImageDto imageDto);
+
     List<Image> queryImageByCondition(ImageDto imageDto);
+
     int updateImageInfo(ImageDto imageDto);
-    List<Image>queryDependencyImage(ImageDto imageDto);
+
+    List<Image> queryDependencyImage(ImageDto imageDto);
+
     int deleteImage(ImageDto imageDto);
 }

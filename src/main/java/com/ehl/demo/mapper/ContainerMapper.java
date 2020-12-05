@@ -11,8 +11,11 @@ import java.util.List;
 @Component
 public interface ContainerMapper {
     int insertContainerInfo(ContainerDto containerDto);
+
     List<Container> queryContainer(ContainerDto containerDto);
+
     int updateContainer(ContainerDto containerDto);
+
     int deleteContainer(ContainerDto containerDto);
 
 }

@@ -7,22 +7,24 @@ import com.ehl.demo.common.DisplayErrorCode;
 import com.ehl.demo.common.RestfulEntity;
 import com.ehl.demo.entity.Image;
 import com.ehl.demo.entity.ImageDto;
+import com.ehl.demo.entity.UserResult;
 import com.ehl.demo.mapper.ImageMapper;
 import com.ehl.demo.utils.CommonUtils;
 import com.ehl.demo.utils.FormatCheck;
-import javafx.beans.binding.MapExpression;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.boot.configurationprocessor.json.JSONTokener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.*;
+
+import static org.apache.catalina.startup.ExpandWar.deleteDir;
 
 @Service
 @Transactional
@@ -32,6 +34,8 @@ public class ImageService {
     private ImageMapper imageMapper;
     @Autowired
     private FormatCheck formatCheck;
+    @Value("${IMAGE_SAVE_PATH}")
+    public String IMAGE_SAVE_PATH;
 
     //镜像下载
     public RestfulEntity<JSONObject> downloadImage(String searchCondition) throws IOException {
@@ -43,7 +47,7 @@ public class ImageService {
         for (Image each : result) {
             String dependencyServiceId = "";
             String dependency = each.getDependencyServiceId();
-            if (!(dependency==null|| dependency.equals(""))) {
+            if (!(dependency == null || dependency.equals(""))) {
                 String[] dependencyList = dependency.split("\\,");
                 for (String dependencyId : dependencyList) {
                     ImageDto imageDto1 = new ImageDto();
@@ -56,11 +60,11 @@ public class ImageService {
                 }
             }
             int dependencyServiceIdLength = dependencyServiceId.length();
-            String newDependencyServiceId=new String();
-            if(dependencyServiceIdLength!=0){
+            String newDependencyServiceId = new String();
+            if (dependencyServiceIdLength != 0) {
                 newDependencyServiceId = dependencyServiceId.substring(0, dependencyServiceIdLength - 1);
-            }else{
-                newDependencyServiceId=null;
+            } else {
+                newDependencyServiceId = null;
             }
             each.setDependencyServiceId(newDependencyServiceId);
             dataAll.put(each.getImageId(), each);
@@ -73,18 +77,18 @@ public class ImageService {
 
     //镜像上传
     public RestfulEntity<JSONObject> uploadImage(File fileObj) throws Exception {
-        if (fileObj.exists()&&fileObj.isFile()) {
+        if (fileObj.exists() && fileObj.isFile()) {
             String errorMessages = new String();
             Boolean errorFlag = false;
-            String str = FileUtils.readFileToString(fileObj,"UTF-8");
+            String str = FileUtils.readFileToString(fileObj, "UTF-8");
 
-            JSONObject dataFile =JSONObject.parseObject(str, Feature.OrderedField);
+            JSONObject dataFile = JSONObject.parseObject(str, Feature.OrderedField);
 
             Iterator iter = dataFile.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
 
-                ImageDto imageDto = JSON.toJavaObject((JSON) entry.getValue(),ImageDto.class);
+                ImageDto imageDto = JSON.toJavaObject((JSON) entry.getValue(), ImageDto.class);
                 RestfulEntity<JSONObject> result = imageInsert(imageDto);
                 System.out.println("result" + result);
                 if (!result.getStatus().equals("0")) {
@@ -116,7 +120,7 @@ public class ImageService {
             return dataValidationResult;
         }
         //参数唯一性校验
-        ImageDto imageDto1=new ImageDto();
+        ImageDto imageDto1 = new ImageDto();
         imageDto1.setImageName(imageDto.getImageName());
         imageDto1.setImageTag(imageDto.getImageTag());
         List<Image> uniqueCheck = queryImageInfo(imageDto1);
@@ -229,7 +233,7 @@ public class ImageService {
         ImageDto imageDto1 = new ImageDto();
         imageDto1.setImageId(imageDto.getImageId());
         List<Image> deleteSearch = queryImageInfo(imageDto1);
-        if (deleteSearch.isEmpty()|| deleteSearch == null) {
+        if (deleteSearch.isEmpty() || deleteSearch == null) {
             return RestfulEntity.getFailure(DisplayErrorCode.imageIdErrCheck);
         } else {
             //查询是否是被依赖镜像
@@ -240,7 +244,7 @@ public class ImageService {
                 return RestfulEntity.getFailure(DisplayErrorCode.imageDependencyErr);
             }
             //判断删除权限
-            if (imageDto.getUserResult().getAuthority() .equals("3")  && !(deleteSearch.get(0).getImageName().startsWith(imageDto.getUserResult().getNamespace()))) {
+            if (imageDto.getUserResult().getAuthority().equals("3") && !(deleteSearch.get(0).getImageName().startsWith(imageDto.getUserResult().getNamespace()))) {
                 return RestfulEntity.getFailure(DisplayErrorCode.authorityErr);
             }
         }
@@ -342,6 +346,28 @@ public class ImageService {
             dependencyServiceId = null;
         }
         return RestfulEntity.getSuccess(dependencyServiceId);
+    }
+
+    //取消镜像构建
+    public RestfulEntity<JSONObject> cancelBuild(UserResult userResult) {
+        String userFileTempPath = IMAGE_SAVE_PATH + File.separator + userResult.getUserName() + File.separator + "temp";
+        File file = new File(userFileTempPath);
+        if (file.isDirectory()) {
+            String[] children = file.list();
+            //递归删除目录中的子目录下
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(file, children[i]));
+                if (!success) {
+                    return RestfulEntity.getFailure(503, "cancelBuild失败");
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        Boolean bool = file.delete();
+        if (!bool) {
+            return RestfulEntity.getFailure(503, "cancelBuild失败");
+        }
+        return RestfulEntity.getSuccess("成功取消镜像构建");
     }
 
 }

@@ -7,11 +7,18 @@
     </resultMap>
 
     <insert id="insertContainerInfo">
-        insert into t_dl_algoplatform_container (CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, STORAGEREQUESTS, INFO, ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING, TVCHANNEL, NAMESPACE, HOSTALIASES)
-        values (#{conId}, #{taskId}, #{imageId}, #{command}, #{args}, #{env}, #{portMapping},#{volumeMapping},#{cpuRequests},#{gpuRequests}, #{memRequests}, #{storageRequests}, #{info}, #{analysisType}, #{input}, #{output}, #{channelId}, #{deleteFlag}, #{configMapping}, #{tvChannel}, #{namespace}, #{hostAliases})
+        insert into t_dl_algoplatform_container (CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING,
+                                                 CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, STORAGEREQUESTS, INFO,
+                                                 ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING,
+                                                 TVCHANNEL, NAMESPACE, HOSTALIASES)
+        values (#{conId}, #{taskId}, #{imageId}, #{command}, #{args}, #{env}, #{portMapping}, #{volumeMapping},
+                #{cpuRequests}, #{gpuRequests}, #{memRequests}, #{storageRequests}, #{info}, #{analysisType}, #{input},
+                #{output}, #{channelId}, #{deleteFlag}, #{configMapping}, #{tvChannel}, #{namespace}, #{hostAliases})
     </insert>
     <select id="queryContainer" resultMap="ContainerInfo">
-        select CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING, CPUREQUESTS, GPUREQUESTS, MEMREQUESTS, STORAGEREQUESTS, INFO, ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING, TVCHANNEL, NAMESPACE, HOSTALIASES
+        select CONID, TASKID, IMAGEID, COMMAND, ARGS, ENV, PORTMAPPING, VOLUMEMAPPING, CPUREQUESTS, GPUREQUESTS,
+        MEMREQUESTS, STORAGEREQUESTS, INFO, ANALYSISTYPE, INPUT, OUTPUT, CHANNELID, DELETEFLAG, CONFIGMAPPING,
+        TVCHANNEL, NAMESPACE, HOSTALIASES
         from t_dl_algoplatform_container
         <where>
             DELETEFLAG=0
@@ -28,7 +35,7 @@
             </if>
         </set>
         <where>
-                DELETEFLAG=0
+            DELETEFLAG=0
             <if test="conId != null and conId != ''">
                 and CONID = #{conId}
             </if>
